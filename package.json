@@ -1,7 +1,7 @@
 {
   "name": "game-challenge",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server/index.js",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"vite\"",
