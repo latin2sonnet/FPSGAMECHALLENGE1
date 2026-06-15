@@ -15,6 +15,9 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "engines": {
+    "node": ">=18.0.0 <=22.x"
+  },
   "dependencies": {
     "cannon-es": "^0.20.0",
     "concurrently": "^10.0.3",
