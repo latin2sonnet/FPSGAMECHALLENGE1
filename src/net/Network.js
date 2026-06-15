@@ -10,7 +10,10 @@ export class Network {
 
   connect(name) {
     const serverUrl = import.meta.env?.VITE_SERVER_URL || window.location.origin;
-    this.socket = io(serverUrl);
+    this.socket = io(serverUrl, {
+      timeout: 10000,
+      reconnectionAttempts: 5,
+    });
 
     this.socket.on('connect', () => {
       this.connected = true;

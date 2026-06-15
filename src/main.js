@@ -42,6 +42,8 @@ const remotePlayers = new Map();
 let lastTime = performance.now();
 let gameRunning = false;
 let messageTimer = 0;
+let connectingTimer = null;
+const SERVER_URL = import.meta.env?.VITE_SERVER_URL || window.location.origin;
 
 function showScreen(el) {
   menu.classList.remove('active');
@@ -192,27 +194,44 @@ network.on('kill', (data) => {
   showMessage(`${data.killer || 'Self'} eliminated ${data.victim}`, 2.5);
 });
 
+function resetMenuButton() {
+  playBtn.disabled = false;
+  playBtn.textContent = 'DEPLOY';
+  if (connectingTimer) {
+    clearTimeout(connectingTimer);
+    connectingTimer = null;
+  }
+}
+
 playBtn.addEventListener('click', () => {
   const name = nameInput.value.trim() || 'Player';
-  menuError.textContent = '';
+  menuError.textContent = 'Connecting...';
   playBtn.disabled = true;
   playBtn.textContent = 'CONNECTING...';
+
+  connectingTimer = setTimeout(() => {
+    menuError.textContent = `Waking up backend at ${SERVER_URL}... (Render free tier can take 30-60s)`;
+  }, 2500);
+
   network.connect(name);
 });
 
 network.on('joined', () => {
-  playBtn.disabled = false;
-  playBtn.textContent = 'DEPLOY';
+  resetMenuButton();
+  menuError.textContent = '';
 });
 
 network.on('error', (err) => {
-  playBtn.disabled = false;
-  playBtn.textContent = 'DEPLOY';
-  menuError.textContent = `Connection failed: ${err.message}. Is the server running?`;
+  resetMenuButton();
+  menuError.innerHTML = `Connection failed to <code>${SERVER_URL}</code>: ${err.message}<br>Make sure VITE_SERVER_URL is set and the Render service is awake, then redeploy Vercel.`;
 });
 
 network.on('disconnected', (data) => {
-  if (!gameRunning) return;
+  resetMenuButton();
+  if (!gameRunning) {
+    menuError.textContent = `Lost connection before joining (${data.reason}). Retry?`;
+    return;
+  }
   showMessage(`Disconnected: ${data.reason}`, 5);
   input.exitPointerLock();
 });
