@@ -45,6 +45,9 @@ let messageTimer = 0;
 let connectingTimer = null;
 const SERVER_URL = import.meta.env?.VITE_SERVER_URL || window.location.origin;
 
+// Show configured backend so users can verify VITE_SERVER_URL was baked in
+menuError.innerHTML = `Backend: <code>${SERVER_URL}</code>`;
+
 function showScreen(el) {
   menu.classList.remove('active');
   hud.classList.remove('active');
@@ -202,6 +205,8 @@ function resetMenuButton() {
     connectingTimer = null;
   }
 }
+
+console.log('[Neon Strike] Server URL:', SERVER_URL);
 
 playBtn.addEventListener('click', () => {
   const name = nameInput.value.trim() || 'Player';
