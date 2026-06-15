@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-export class Map {
+export class ArenaMap {
   constructor(scene) {
     this.scene = scene;
     this.bodies = []; // physics shape data {position, size, type:'box'}

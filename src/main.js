@@ -3,7 +3,7 @@ import { Physics } from './engine/Physics.js';
 import { Input } from './engine/Input.js';
 import { AudioSynth } from './audio/AudioSynth.js';
 import { Network } from './net/Network.js';
-import { Map } from './game/Map.js';
+import { ArenaMap } from './game/Map.js';
 import { LocalPlayer, RemotePlayer } from './game/Player.js';
 import { WeaponView } from './game/Weapon.js';
 import { ProjectileManager } from './game/Projectile.js';
@@ -31,7 +31,7 @@ const input = new Input();
 const audio = new AudioSynth();
 const network = new Network();
 
-const map = new Map(renderer.scene);
+const map = new ArenaMap(renderer.scene);
 physics.addMap(map);
 
 const projectiles = new ProjectileManager(renderer.scene, null);
