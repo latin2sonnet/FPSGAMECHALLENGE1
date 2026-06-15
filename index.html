@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Strike — Browser FPS</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="ui">
+    <div id="menu" class="screen active">
+      <h1>NEON STRIKE</h1>
+      <p class="tagline">Adrenaline-powered arena combat</p>
+      <div class="form">
+        <input id="nameInput" type="text" placeholder="Enter your callsign" maxlength="16" value="Player" />
+        <button id="playBtn">DEPLOY</button>
+        <p id="menuError"></p>
+      </div>
+      <div class="controls">
+        <p><strong>WASD</strong> move · <strong>SPACE</strong> jump · <strong>SHIFT</strong> dash</p>
+        <p><strong>LMB</strong> fire · <strong>1/2/3</strong> weapons · <strong>F</strong> adrenaline focus</p>
+      </div>
+    </div>
+
+    <div id="hud" class="screen">
+      <div id="crosshair"></div>
+      <div id="health"><span>HP</span><div class="bar"><div id="hpFill"></div></div></div>
+      <div id="ammo"></div>
+      <div id="energy"><span>ADR</span><div class="bar"><div id="enFill"></div></div></div>
+      <div id="weaponName"></div>
+      <div id="scoreboard"></div>
+      <div id="message"></div>
+      <div id="focusOverlay"></div>
+    </div>
+
+    <div id="death" class="screen">
+      <h2>ELIMINATED</h2>
+      <p id="killerText"></p>
+      <button id="respawnBtn">RESPAWN</button>
+    </div>
+  </div>
+
+  <canvas id="game"></canvas>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

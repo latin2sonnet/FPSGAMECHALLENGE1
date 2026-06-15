@@ -1,0 +1,263 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #05070a;
+  color: #e8f7ff;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: auto;
+  background: radial-gradient(circle at center, rgba(10, 22, 38, 0.85), rgba(2, 4, 8, 0.96));
+}
+
+.screen.active {
+  display: flex;
+}
+
+#hud {
+  background: none;
+  pointer-events: none;
+  display: none;
+}
+
+#hud.active {
+  display: block;
+}
+
+h1 {
+  font-size: 5rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 24px #00eaff, 0 0 48px #0066ff;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 3rem;
+  color: #ff4d6d;
+  text-shadow: 0 0 24px #ff003c;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  color: #8acfff;
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 320px;
+}
+
+#menuError {
+  min-height: 1.2em;
+  color: #ff4d6d;
+  font-size: 0.9rem;
+  text-shadow: 0 0 8px #ff003c;
+}
+
+input {
+  padding: 0.85rem 1rem;
+  border: 2px solid #00eaff;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+input:focus {
+  box-shadow: 0 0 16px #00eaff;
+}
+
+button {
+  padding: 0.9rem 1.4rem;
+  border: none;
+  background: linear-gradient(90deg, #00eaff, #0066ff);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 24px #00eaff;
+}
+
+.controls {
+  margin-top: 2rem;
+  color: #93b8d3;
+  line-height: 1.6;
+}
+
+#crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(0, 234, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00eaff;
+}
+
+#crosshair::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+}
+
+#health, #energy, #ammo, #weaponName {
+  position: absolute;
+  font-weight: 700;
+}
+
+#health {
+  left: 24px;
+  bottom: 24px;
+}
+
+#energy {
+  left: 24px;
+  bottom: 64px;
+}
+
+#ammo {
+  right: 24px;
+  bottom: 24px;
+  font-size: 2rem;
+}
+
+#weaponName {
+  right: 24px;
+  bottom: 64px;
+  color: #8acfff;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+}
+
+.bar {
+  width: 180px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.bar > div {
+  height: 100%;
+  width: 100%;
+  transition: width 0.12s linear;
+}
+
+#hpFill { background: linear-gradient(90deg, #ff4d6d, #ff8fab); }
+#enFill { background: linear-gradient(90deg, #00eaff, #0066ff); }
+
+#health span, #energy span {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: #93b8d3;
+}
+
+#scoreboard {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(0, 234, 255, 0.25);
+  border-radius: 8px;
+  padding: 12px 16px;
+  min-width: 180px;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+#scoreboard h3 {
+  font-size: 0.75rem;
+  color: #8acfff;
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+}
+
+#scoreboard .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+#scoreboard .me {
+  color: #00eaff;
+}
+
+#message {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translateX(-50%);
+  font-size: 1.4rem;
+  color: #ff4d6d;
+  text-shadow: 0 0 12px #ff003c;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+#message.show {
+  opacity: 1;
+}
+
+#focusOverlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0, 102, 255, 0.35) 100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+#focusOverlay.active {
+  opacity: 1;
+}
